@@ -1,12 +1,12 @@
-local k = import 'ksonnet/ksonnet.beta.4/k.libsonnet';
 local k3 = import 'ksonnet/ksonnet.beta.3/k.libsonnet';
+local k = import 'ksonnet/ksonnet.beta.4/k.libsonnet';
 
 {
   _config+:: {
     namespace: 'default',
 
     versions+:: {
-      prometheus: 'v2.7.2',
+      prometheus: 'v2.11.0',
     },
 
     imageRepos+:: {
@@ -70,8 +70,8 @@ local k3 = import 'ksonnet/ksonnet.beta.3/k.libsonnet';
         roleBinding.mixin.roleRef.mixinInstance({ kind: 'Role' }) +
         roleBinding.withSubjects([{ kind: 'ServiceAccount', name: 'prometheus-' + $._config.prometheus.name, namespace: $._config.namespace }]);
 
-      local roleBindigList = k3.rbac.v1.roleBindingList;
-      roleBindigList.new([newSpecificRoleBinding(x) for x in $._config.prometheus.namespaces]),
+      local roleBindingList = k3.rbac.v1.roleBindingList;
+      roleBindingList.new([newSpecificRoleBinding(x) for x in $._config.prometheus.namespaces]),
     clusterRole:
       local clusterRole = k.rbac.v1.clusterRole;
       local policyRule = clusterRole.rulesType;
@@ -170,8 +170,9 @@ local k3 = import 'ksonnet/ksonnet.beta.3/k.libsonnet';
           baseImage: $._config.imageRepos.prometheus,
           serviceAccountName: 'prometheus-' + $._config.prometheus.name,
           serviceMonitorSelector: {},
+          podMonitorSelector: {},
           serviceMonitorNamespaceSelector: {},
-          nodeSelector: { 'beta.kubernetes.io/os': 'linux' },
+          nodeSelector: { 'kubernetes.io/os': 'linux' },
           ruleSelector: selector.withMatchLabels({
             role: 'alert-rules',
             prometheus: $._config.prometheus.name,

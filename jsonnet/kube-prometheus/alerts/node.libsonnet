@@ -7,7 +7,7 @@
           {
             alert: 'NodeDiskRunningFull',
             annotations: {
-              message: 'Device {{ $labels.device }} of node-exporter {{ $labels.namespace }}/{{ $labels.pod }} will be full within the next 24 hours.',
+              message: 'Device {{ $labels.device }} on node {{ $labels.instance }} will be full within the next 24 hours.',
             },
             expr: |||
               (node:node_filesystem_usage: > 0.85) and (predict_linear(node:node_filesystem_avail:[6h], 3600 * 24) < 0)
@@ -20,7 +20,7 @@
           {
             alert: 'NodeDiskRunningFull',
             annotations: {
-              message: 'Device {{ $labels.device }} of node-exporter {{ $labels.namespace }}/{{ $labels.pod }} will be full within the next 2 hours.',
+              message: 'Device {{ $labels.device }} on node {{ $labels.instance }} will be full within the next 2 hours.',
             },
             expr: |||
               (node:node_filesystem_usage: > 0.85) and (predict_linear(node:node_filesystem_avail:[30m], 3600 * 2) < 0)
@@ -41,7 +41,7 @@
               message: 'Clock skew detected on node-exporter {{ $labels.namespace }}/{{ $labels.pod }}. Ensure NTP is configured correctly on this host.',
             },
             expr: |||
-              abs(node_timex_offset_seconds{%(nodeExporterSelector)s}) > 0.03
+              abs(node_timex_offset_seconds{%(nodeExporterSelector)s}) > 0.05
             ||| % $._config,
             'for': '2m',
             labels: {
