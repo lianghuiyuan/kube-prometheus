@@ -27,7 +27,7 @@
                     "subdir": ""
                 }
             },
-            "version": "0afc72e70df6048c6b65fd3e4968e53b0812b30c"
+            "version": "e3d6d8ebb1789af0e17fb1f60171aaf64926a3a1"
         },
         {
             "name": "grafonnet",
@@ -67,7 +67,7 @@
                     "subdir": "jsonnet/prometheus-operator"
                 }
             },
-            "version": "6efd4e5e12213021516c10b3ebd0699260ddd804"
+            "version": "908ee0372a9ac2c6574d589fdc56a4f3cb5f12d1"
         },
         {
             "name": "etcd-mixin",
@@ -97,7 +97,17 @@
                     "subdir": "docs/node-mixin"
                 }
             },
-            "version": "154d59dee72b894f7245d8d78c9344d1211d521f"
+            "version": "e7c2dbed4e0278731b59e9870eb9a9d046047aa8"
+        },
+        {
+            "name": "promgrafonnet",
+            "source": {
+                "git": {
+                    "remote": "https://github.com/kubernetes-monitoring/kubernetes-mixin",
+                    "subdir": "lib/promgrafonnet"
+                }
+            },
+            "version": "24ea0d6e33a415e07ec7b675d74dea3cf01fde73"
         }
     ]
 }
